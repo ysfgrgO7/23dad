@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>مغامرة دانيال وجب الأسود</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,700&family=Cairo:wght@400;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body class="fullscreen-mode">
+    <!-- Confetti Canvas -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Reset Button (Royal Wax Seal) -->
+    <div class="floating-controls">
+      <button
+        id="reset-btn"
+        class="ancient-seal-btn reset-seal"
+        title="إعادة بدء المغامرة"
+        aria-label="إعادة البدء"
+      >
+        <span>🔄</span>
+      </button>
+    </div>
+
+    <!-- Full Screen Map Arena -->
+    <main class="fullscreen-map-wrapper">
+      <div class="map-viewport">
+        <img
+          src="assets/map.jpeg"
+          alt="خريطة المغامرة"
+          class="fullscreen-map-img"
+        />
+
+        <!-- Station Node 1: الملك داريوس (Bottom Left) -->
+        <div class="station-node node-1" id="node-1" data-station="1">
+          <div class="node-pulse"></div>
+          <div class="ancient-coin-frame">
+            <div class="coin-rim"></div>
+            <div class="mystery-placeholder" id="placeholder-1">
+              <span class="question-mark">؟</span>
+            </div>
+            <img
+              src="assets/King Darius.png"
+              alt="الملك داريوس"
+              class="revealed-avatar"
+              id="avatar-1"
+            />
+          </div>
+          <div class="station-badge">
+            <span class="badge-num">محطة ١</span>
+            <span class="badge-title">الملك داريوس</span>
+          </div>
+        </div>
+
+        <!-- Station Node 2: الوزراء (Building on the Right) -->
+        <div class="station-node node-2" id="node-2" data-station="2">
+          <div class="node-pulse"></div>
+          <div class="ancient-coin-frame">
+            <div class="coin-rim"></div>
+            <div class="mystery-placeholder" id="placeholder-2">
+              <span class="question-mark">؟</span>
+            </div>
+            <img
+              src="assets/Admins.png"
+              alt="الوزراء"
+              class="revealed-avatar"
+              id="avatar-2"
+            />
+          </div>
+          <div class="station-badge">
+            <span class="badge-num">محطة ٢</span>
+            <span class="badge-title">الوزراء</span>
+          </div>
+        </div>
+
+        <!-- Station Node 3: دانيال (The Lions' Den / Cave) -->
+        <div class="station-node node-3" id="node-3" data-station="3">
+          <div class="node-pulse"></div>
+          <div class="ancient-coin-frame">
+            <div class="coin-rim"></div>
+            <div class="mystery-placeholder" id="placeholder-3">
+              <span class="question-mark">؟</span>
+            </div>
+            <img
+              src="assets/Daniel.png"
+              alt="دانيال النبي"
+              class="revealed-avatar"
+              id="avatar-3"
+            />
+          </div>
+          <div class="station-badge">
+            <span class="badge-num">محطة ٣</span>
+            <span class="badge-title">دانيال في الجب</span>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Real Ancient Scroll Modal -->
+    <div class="modal-overlay" id="station-modal" aria-hidden="true">
+      <div class="authentic-scroll-container">
+        <img
+          src="assets/scroll.png"
+          alt="مخطوطة قديمة"
+          class="scroll-bg-image"
+        />
+
+        <!-- Scroll Text & Character Content Overlaid on Real Parchment -->
+        <div class="scroll-inner-content">
+          <button class="scroll-close-seal" id="modal-close" aria-label="إغلاق">
+            &times;
+          </button>
+
+          <div class="scroll-header">
+            <div class="scroll-char-header-row">
+              <div class="scroll-character-area">
+                <img
+                  src=""
+                  alt="شخصية المحطة"
+                  class="character-transparent-img"
+                  id="modal-char-img"
+                />
+              </div>
+              <h2 class="scroll-title" id="modal-char-name">الملك داريوس</h2>
+            </div>
+          </div>
+
+          <div class="scroll-dialogue-area">
+            <p class="scroll-ancient-text" id="modal-dialogue-text"></p>
+          </div>
+
+          <div class="scroll-footer">
+            <button class="ancient-action-seal-btn" id="modal-action-btn">
+              <span id="modal-btn-text">لقيتها! افتح المحطة التالية 🔍</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Grand Finale Real Ancient Scroll Overlay -->
+    <div class="finale-overlay" id="finale-overlay" aria-hidden="true">
+      <div class="authentic-scroll-container finale-scroll-container">
+        <img
+          src="assets/scroll.png"
+          alt="مخطوطة قديمة"
+          class="scroll-bg-image"
+        />
+
+        <div class="scroll-inner-content finale-inner-content">
+          <div class="scroll-header">
+            <h2 class="scroll-title finale-title">
+              معجزة نجاة دانيال من جب الأسود!
+            </h2>
+          </div>
+
+          <div class="finale-verse-container">
+            <blockquote class="bible-verse-text">
+              «إِلَهِي أَرْسَلَ مَلاَكَهُ وَسَدَّ أَفْوَاهَ الأُسُودِ فَلَمْ
+              تَضُرَّنِي»
+            </blockquote>
+            <cite class="verse-cite">(سفر دانيال ٦: ٢٢)</cite>
+          </div>
+
+          <div class="finale-lessons-area">
+            <h3 class="lessons-title">📜 إيه اللي اتعلمناه من القصة؟</h3>
+            <div class="lessons-list">
+              <div class="lesson-item">
+                <strong>🙏 الصلاة والأمانة:</strong> الصلاة الدائمة والأمانة مع
+                ربنا مهما كانت الظروف صعبة.
+              </div>
+              <div class="lesson-item">
+                <strong>🛡️ حماية ربنا:</strong> ربنا دايماً بيحمي أولاده اللي
+                بيحبوه وبيمد إيده في أصعب الأوقات.
+              </div>
+            </div>
+          </div>
+
+          <div class="scroll-footer finale-actions">
+            <button
+              class="ancient-action-seal-btn victory-btn"
+              id="finale-replay-btn"
+            >
+              <span>🔄 إعادة المغامرة</span>
+            </button>
+            <button
+              class="ancient-action-seal-btn secondary-btn"
+              id="finale-back-btn"
+            >
+              <span>🗺️ مشاهدة الخريطة</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Confirmation Scroll -->
+    <div class="modal-overlay" id="confirm-modal" aria-hidden="true">
+      <div class="authentic-scroll-container confirm-scroll-container">
+        <img
+          src="assets/scroll.png"
+          alt="مخطوطة قديمة"
+          class="scroll-bg-image"
+        />
+        <div class="scroll-inner-content confirm-inner-content">
+          <h3 class="confirm-title">هل تريد إعادة المغامرة؟</h3>
+          <p class="confirm-msg">
+            سيتم إعادة قفل المحطات والبدء من جديد مع الملك داريوس.
+          </p>
+          <div class="confirm-actions">
+            <button
+              class="ancient-action-seal-btn danger-seal"
+              id="confirm-reset-yes"
+            >
+              نعم، أعد البدء
+            </button>
+            <button
+              class="ancient-action-seal-btn secondary-btn"
+              id="confirm-reset-no"
+            >
+              إلغاء
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
