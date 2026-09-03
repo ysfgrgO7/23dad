@@ -6,232 +6,396 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
-    <title>مغامرة دانيال وجب الأسود</title>
+    <title>برنامج أسدين وبس | شاشة العرض المسرحي</title>
+    <!-- Google Fonts for broadcast-grade Arabic typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,700;1,700&family=Cairo:wght@400;600;700;800;900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&family=Tajawal:wght@500;700;800;900&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body class="fullscreen-mode">
-    <!-- Confetti Canvas -->
-    <canvas id="confetti-canvas"></canvas>
+  <body class="stage-body">
+    <!-- 16:9 Cinema Projector Container -->
+    <div id="stage-viewport" class="stage-viewport" data-scene="studio">
+      
+      <!-- ========================================== -->
+      <!-- SCENE 1: LIVE STUDIO / ON AIR (Key: 1)     -->
+      <!-- ========================================== -->
+      <section id="scene-studio" class="scene scene-studio" aria-label="استوديو البث المباشر">
+        <!-- Ambient CSS Spotlight Cones -->
+        <div class="studio-lighting-rig">
+          <div class="spotlight spotlight-left"></div>
+          <div class="spotlight spotlight-center"></div>
+          <div class="spotlight spotlight-right"></div>
+          <div class="studio-ambient-glow"></div>
+          <div class="studio-grid-floor"></div>
+        </div>
 
-    <!-- Reset Button (Royal Wax Seal) -->
-    <div class="floating-controls">
-      <button
-        id="reset-btn"
-        class="ancient-seal-btn reset-seal"
-        title="إعادة بدء المغامرة"
-        aria-label="إعادة البدء"
-      >
-        <span>🔄</span>
+        <!-- Studio Branding Centerpiece -->
+        <div class="studio-hero-content">
+          <div class="studio-logo-emblem">
+            <span class="emblem-lion">🦁</span>
+            <span class="emblem-mic">🎙️</span>
+            <span class="emblem-lion flip-x">🦁</span>
+          </div>
+
+          <h1 class="studio-main-title">
+            <span class="title-sub">برنامج التوك شو الكوميدي الحي</span>
+            <span class="title-gold">أسدين وبس</span>
+          </h1>
+
+          <div class="studio-tagline-badge">
+            <span class="tagline-star">✦</span>
+            <span>بث حصري ومباشر من قلب إمبراطورية بابل العظيمة</span>
+            <span class="tagline-star">✦</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- SCENE 2: FULL BABYLON MAP (Key: 2)         -->
+      <!-- ========================================== -->
+      <section id="scene-map" class="scene scene-map" aria-label="خريطة بابل التفاعلية">
+        <!-- Full Map Overview Container -->
+        <div id="map-camera" class="map-camera">
+          <img
+            src="assets/map.jpeg"
+            alt="خريطة إمبراطورية بابل التوضيحية"
+            class="map-image-asset"
+            id="map-asset"
+            loading="eager"
+          />
+
+          <!-- ========================================== -->
+          <!-- STATION 1: Admins in their Council Place   -->
+          <!-- ========================================== -->
+          <div class="map-station-node station-admins locked starter" id="station-admins" role="button" tabindex="0" aria-label="المحطة الأولى (سرية)">
+            <div class="station-beacon-ring"></div>
+            <div class="station-avatar-bubble">
+              <img src="assets/Admins.png" alt="شخصية سرية" class="station-avatar-img" />
+              <div class="station-mystery-overlay">
+                <span class="mystery-q">?</span>
+              </div>
+              <span class="station-badge-icon">📜</span>
+            </div>
+          </div>
+
+          <!-- ========================================== -->
+          <!-- STATION 2: King Darius in the Palace       -->
+          <!-- ========================================== -->
+          <div class="map-station-node station-king locked" id="station-king" role="button" tabindex="0" aria-label="محطة قصر الملك داريوس">
+            <div class="station-beacon-ring"></div>
+            <div class="station-avatar-bubble">
+              <img src="assets/King Darius.png" alt="الملك داريوس" class="station-avatar-img" />
+              <div class="station-mystery-overlay">
+                <span class="mystery-q">?</span>
+              </div>
+              <span class="station-badge-icon">👑</span>
+            </div>
+          </div>
+
+          <!-- ========================================== -->
+          <!-- STATION 3: Daniel in the Lion's Den        -->
+          <!-- ========================================== -->
+          <div class="map-station-node station-daniel locked" id="station-daniel" role="button" tabindex="0" aria-label="محطة جُب الأسود">
+            <div class="station-beacon-ring hazard-ring"></div>
+            <div class="station-avatar-bubble daniel-bubble">
+              <img src="assets/Daniel.png" alt="دانيال النبي" class="station-avatar-img" />
+              <div class="station-mystery-overlay">
+                <span class="mystery-q">?</span>
+              </div>
+              <span class="station-badge-icon">🦁</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Interactive Character Spotlight / Dialogue Card -->
+        <div class="station-spotlight-modal" id="station-modal" aria-hidden="true">
+          <div class="spotlight-backdrop" id="modal-backdrop"></div>
+          <div class="spotlight-dialog-card" id="modal-card">
+            <button class="spotlight-close-btn" id="modal-close-btn" aria-label="إغلاق النافذة">✕</button>
+            <div class="spotlight-card-grid">
+              <div class="spotlight-portrait-col">
+                <div class="spotlight-portrait-frame" id="modal-portrait-frame">
+                  <img src="assets/Admins.png" id="modal-portrait-img" alt="شخصية المحطة" class="spotlight-img" />
+                </div>
+                <div class="spotlight-location-pill" id="modal-location-pill">
+                  <span id="modal-location-icon">🏛️</span>
+                  <span id="modal-location-text">مجلس الوزراء</span>
+                </div>
+              </div>
+              <div class="spotlight-content-col">
+                <div class="spotlight-header">
+                  <span class="spotlight-stage-badge" id="modal-stage-badge">المحطة الأولى 📜</span>
+                  <h2 class="spotlight-character-name" id="modal-character-name">الوزراء والولاة</h2>
+                </div>
+                <div class="spotlight-dialogue-quote">
+                  <span class="quote-mark">“</span>
+                  <p class="dialogue-text" id="modal-dialogue-text">نص الحوار المصري للشخصية يظهر هنا...</p>
+                </div>
+                <div class="spotlight-action-footer">
+                  <button class="btn-unlock-next" id="btn-unlock-next">
+                    <span>فتح المحطة التالية 🔓</span>
+                  </button>
+                  <span class="spotlight-hint-text">💡 اضغط على أي مكان في الخريطة أو ✕ للإغلاق</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sleek Adventure Progress Tracker Pill -->
+        <div class="map-progress-tracker" id="map-progress-tracker" aria-label="شريط تقدم المحطات">
+          <span class="tracker-title">المحطات:</span>
+          <div class="tracker-steps">
+            <div class="tracker-node" id="track-node-1" title="المحطة الأولى: الوزراء والولاة">
+              <span class="track-icon">📜</span>
+              <span class="track-status">١</span>
+            </div>
+            <div class="track-divider" id="track-div-1"></div>
+            <div class="tracker-node" id="track-node-2" title="المحطة الثانية: الملك داريوس">
+              <span class="track-icon">👑</span>
+              <span class="track-status">٢</span>
+            </div>
+            <div class="track-divider" id="track-div-2"></div>
+            <div class="tracker-node" id="track-node-3" title="المحطة الثالثة: دانيال في الجب">
+              <span class="track-icon">🦁</span>
+              <span class="track-status">٣</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- MISSION COMPLETE CELEBRATION TOAST         -->
+      <!-- ========================================== -->
+      <div id="mission-toast" class="mission-toast" aria-hidden="true">
+        <div class="mission-toast-glow"></div>
+        <div class="mission-toast-box">
+          <div class="mission-toast-check">
+            <span class="check-symbol">✓</span>
+          </div>
+          <div class="mission-toast-content">
+            <div class="mission-badge-row">
+              <span class="badge-sparkle">✦</span>
+              <span class="mission-badge">مَهَمَّةٌ مُكْتَمَلَة &bull; MISSION COMPLETE</span>
+              <span class="badge-sparkle">✦</span>
+            </div>
+            <h3 class="mission-title" id="mission-toast-title">تم إنجاز المحطة بنجاح!</h3>
+            <p class="mission-desc" id="mission-toast-desc">تم فك الشفرة واكتشاف الموقع الجديد على الخريطة</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- GRAND FINALE VICTORY CELEBRATION (GAME END)-->
+      <!-- ========================================== -->
+      <div id="grand-finale-overlay" class="grand-finale-overlay" aria-hidden="true">
+        <canvas id="confetti-canvas" class="confetti-canvas"></canvas>
+        <div class="finale-backdrop" id="finale-backdrop"></div>
+        <div class="finale-scroll-card">
+          <button class="finale-close-btn" id="finale-close-btn" title="إغلاق النافذة">✕</button>
+          <div class="finale-scroll-inner">
+            <div class="finale-header">
+              <div class="finale-crown-row">
+                <span>🌟</span>
+                <span class="crown-big">👑</span>
+                <span>🌟</span>
+              </div>
+              <span class="finale-tag">خاتمة المغامرة والانتصار العظيم</span>
+              <h1 class="finale-main-title">نَجَاةُ دَانْيَال وَانْتِصَارُ الإِيمَان</h1>
+            </div>
+
+            <div class="finale-hero-row">
+              <div class="finale-hero-avatar daniel-hero">
+                <img src="assets/Daniel.png" alt="دانيال النبي" />
+                <span class="hero-name-label">دانيال النبي</span>
+              </div>
+              <div class="finale-center-light">
+                <div class="divine-rays-circle"></div>
+                <span class="divine-star-icon">✨</span>
+                <span class="divine-text">إِلَهِي حَفِظَنِي</span>
+              </div>
+              <div class="finale-hero-avatar lion-hero">
+                <img src="assets/Lion.png" alt="الأسد الملكي" />
+                <span class="hero-name-label">الأسد المسالم</span>
+              </div>
+            </div>
+
+            <div class="finale-verse-box">
+              <span class="verse-quote-mark">“</span>
+              <p class="finale-verse-text">
+                «إِلَهِي أَرْسَلَ مَلاَكَهُ وَسَدَّ أَفْوَاهَ الأُسُودِ فَلَمْ تَضُرَّنِي، لأَنِّي وُجِدْتُ بَرِيئاً قُدَّامَهُ، وَقُدَّامَكَ أَيْضاً أَيُّهَا الْمَلِكُ لَمْ أَفْعَلْ ضَرَراً»
+              </p>
+              <span class="verse-ref">— سفر دانيال ٦ : ٢٢</span>
+            </div>
+
+            <div class="finale-lessons-grid">
+              <div class="lesson-card">
+                <span class="lesson-icon">🙏</span>
+                <div class="lesson-text">
+                  <h4>قوة الصلاة الدائمة</h4>
+                  <p>دانيال لم يتخلَّ عن أمانته وصلاته ثلاث مرات يومياً وشباكه مفتوح نحو أورشليم.</p>
+                </div>
+              </div>
+              <div class="lesson-card">
+                <span class="lesson-icon">🛡️</span>
+                <div class="lesson-text">
+                  <h4>حماية الله الفائقة</h4>
+                  <p>الله دايماً حاضر وقادر يسد كل صعوبة ويحفظ أولاده المخلصين في أصعب اللحظات.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="finale-actions-row">
+              <button class="btn-finale-action restart" id="btn-finale-restart">
+                <span>🔄 إعادة المغامرة من جديد</span>
+              </button>
+              <button class="btn-finale-action roar" id="btn-finale-roar">
+                <span>🦁 زئير الأسد</span>
+              </button>
+              <button class="btn-finale-action studio" id="btn-finale-studio">
+                <span>🎙️ الاستوديو المباشر</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- PERMANENT TV BROADCAST UI OVERLAYS         -->
+      <!-- ========================================== -->
+
+      <!-- Top Header Bar: ON AIR Indicator & Show Logo Stamp -->
+      <header class="broadcast-top-bar">
+        <!-- Live ON AIR Pulsing Badge -->
+        <div class="on-air-badge">
+          <span class="pulsing-beacon"></span>
+          <span class="on-air-text">بث مباشر / ON AIR</span>
+        </div>
+
+        <!-- Screen Scene Title Indicator (Updates per state) -->
+        <div class="scene-status-pill" id="scene-indicator">
+          <span class="indicator-icon" id="indicator-icon">🎙️</span>
+          <span class="indicator-text" id="indicator-text">الاستوديو الرئيسي</span>
+        </div>
+
+        <!-- TV Watermark Bug (Top Left) -->
+        <div class="channel-bug">
+          <span class="bug-text">أسدين وبس TV</span>
+          <span class="bug-hd">HD</span>
+        </div>
+      </header>
+
+      <!-- Bottom Breaking News Ticker (شريط الأخبار العاجلة) -->
+      <footer class="breaking-ticker-wrapper" aria-label="شريط الأخبار العاجلة">
+        <div class="ticker-badge">
+          <span class="ticker-flash-dot"></span>
+          <span class="ticker-badge-text">عـاجـل</span>
+          <span class="ticker-badge-en">BREAKING</span>
+        </div>
+
+        <div class="ticker-marquee-track">
+          <div class="ticker-content" id="ticker-content">
+            <!-- Marquee Headlines (RTL Loop) -->
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              مرسوم ملكي عاجل: يُمنع منعاً باتاً الصلاة أو تقديم أي طلب من أي إله أو إنسان غير جلالة الملك داريوس لمدة ٣٠ يوماً، ومن يخالف يُلقى فوراً في جُب الأسود.
+            </span>
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              كواليس الاستوديو: المذيعة تطالب بفرقة تدخل سريع لإنقاذ وجبة الغداء الخاصة بها من قبضة الوزير الثاني قبل بدء الفقرة.
+            </span>
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              تحريات خاصة: مصادر سرية ترصد الوزير دانيال يصلي في منزله كعادته وشباكه مفتوح باتجاه أورشليم غير مبالٍ بالمرسوم.
+            </span>
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              تحذيرات مشددة: أسود القصر الملكي تصدر بياناً تعلن فيه الإضراب عن الزئير بسبب الجوع الشديد وتطالب بوجبات دسمة ومطابقة للمواصفات.
+            </span>
+            <!-- Duplicate for Seamless Infinite Marquee Loop -->
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              مرسوم ملكي عاجل: يُمنع منعاً باتاً الصلاة أو تقديم أي طلب من أي إله أو إنسان غير جلالة الملك داريوس لمدة ٣٠ يوماً، ومن يخالف يُلقى فوراً في جُب الأسود.
+            </span>
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              كواليس الاستوديو: المذيعة تطالب بفرقة تدخل سريع لإنقاذ وجبة الغداء الخاصة بها من قبضة الوزير الثاني قبل بدء الفقرة.
+            </span>
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              تحريات خاصة: مصادر سرية ترصد الوزير دانيال يصلي في منزله كعادته وشباكه مفتوح باتجاه أورشليم غير مبالٍ بالمرسوم.
+            </span>
+            <span class="ticker-item">
+              <span class="ticker-bullet">🔴</span>
+              تحذيرات مشددة: أسود القصر الملكي تصدر بياناً تعلن فيه الإضراب عن الزئير بسبب الجوع الشديد وتطالب بوجبات دسمة ومطابقة للمواصفات.
+            </span>
+          </div>
+        </div>
+      </footer>
+
+      <!-- ========================================== -->
+      <!-- BACKSTAGE TECHNICIAN CONTROL PANEL (HUD)   -->
+      <!-- ========================================== -->
+      <!-- Toggleable via 'H' key or discreet button in bottom corner -->
+      <aside id="tech-panel" class="tech-hud" aria-hidden="true">
+        <div class="tech-hud-header">
+          <div class="tech-hud-title">
+            <span class="tech-gear">⚙️</span>
+            <span>لوحة تحكم الفني (مسرح العرض)</span>
+          </div>
+          <button id="tech-close-btn" class="tech-btn-mini" title="إخفاء اللوحة (H)">✕</button>
+        </div>
+
+        <div class="tech-hud-body">
+          <div class="tech-scenes-grid">
+            <button class="tech-scene-btn active" data-scene-target="studio" id="btn-scene-1">
+              <span class="key-badge">1</span>
+              <span class="scene-label">🎙️ استوديو مباشر</span>
+            </button>
+
+            <button class="tech-scene-btn" data-scene-target="map" id="btn-scene-2">
+              <span class="key-badge">2</span>
+              <span class="scene-label">🗺️ خريطة بابل كاملة</span>
+            </button>
+          </div>
+
+          <div class="tech-actions-row">
+            <button class="tech-action-btn" id="btn-fullscreen">
+              <span class="key-badge">F</span>
+              <span>⛶ شاشة كاملة</span>
+            </button>
+
+            <button class="tech-action-btn lion-roar-btn" id="btn-lion-roar" title="تشغيل صوت زئير الأسد (L)">
+              <span class="key-badge">L</span>
+              <span>🦁 زئير الأسد</span>
+            </button>
+
+            <button class="tech-action-btn" id="btn-reset-hunt" title="إعادة بدء رحلة المحطات">
+              <span class="key-badge">R</span>
+              <span>🔄 إعادة ضبط المحطات</span>
+            </button>
+          </div>
+
+          <div class="tech-hud-shortcuts-hint">
+            <span>اختصارات لوحة المفاتيح:</span>
+            <code>1</code> استوديو &bull;
+            <code>2</code> الخريطة كاملة &bull;
+            <code>L</code> زئير الأسد &bull;
+            <code>F</code> ملء الشاشة &bull;
+            <code>H</code> إظهار/إخفاء اللوحة
+          </div>
+        </div>
+      </aside>
+
+      <!-- Discreet Hotspot trigger for Technician if using touch/mouse -->
+      <button id="tech-toggle-trigger" class="tech-discreet-trigger" title="لوحة الفني (H)" aria-label="لوحة الفني">
+        ⚙️
       </button>
-    </div>
 
-    <!-- Full Screen Map Arena -->
-    <main class="fullscreen-map-wrapper">
-      <div class="map-viewport">
-        <img
-          src="assets/map.jpeg"
-          alt="خريطة المغامرة"
-          class="fullscreen-map-img"
-        />
-
-        <!-- Station Node 1: الملك داريوس (Bottom Left) -->
-        <div class="station-node node-1" id="node-1" data-station="1">
-          <div class="node-pulse"></div>
-          <div class="ancient-coin-frame">
-            <div class="coin-rim"></div>
-            <div class="mystery-placeholder" id="placeholder-1">
-              <span class="question-mark">؟</span>
-            </div>
-            <img
-              src="assets/King Darius.png"
-              alt="الملك داريوس"
-              class="revealed-avatar"
-              id="avatar-1"
-            />
-          </div>
-          <div class="station-badge">
-            <span class="badge-num">محطة ١</span>
-            <span class="badge-title">الملك داريوس</span>
-          </div>
-        </div>
-
-        <!-- Station Node 2: الوزراء (Building on the Right) -->
-        <div class="station-node node-2" id="node-2" data-station="2">
-          <div class="node-pulse"></div>
-          <div class="ancient-coin-frame">
-            <div class="coin-rim"></div>
-            <div class="mystery-placeholder" id="placeholder-2">
-              <span class="question-mark">؟</span>
-            </div>
-            <img
-              src="assets/Admins.png"
-              alt="الوزراء"
-              class="revealed-avatar"
-              id="avatar-2"
-            />
-          </div>
-          <div class="station-badge">
-            <span class="badge-num">محطة ٢</span>
-            <span class="badge-title">الوزراء</span>
-          </div>
-        </div>
-
-        <!-- Station Node 3: دانيال (The Lions' Den / Cave) -->
-        <div class="station-node node-3" id="node-3" data-station="3">
-          <div class="node-pulse"></div>
-          <div class="ancient-coin-frame">
-            <div class="coin-rim"></div>
-            <div class="mystery-placeholder" id="placeholder-3">
-              <span class="question-mark">؟</span>
-            </div>
-            <img
-              src="assets/Daniel.png"
-              alt="دانيال النبي"
-              class="revealed-avatar"
-              id="avatar-3"
-            />
-          </div>
-          <div class="station-badge">
-            <span class="badge-num">محطة ٣</span>
-            <span class="badge-title">دانيال في الجب</span>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- Real Ancient Scroll Modal -->
-    <div class="modal-overlay" id="station-modal" aria-hidden="true">
-      <div class="authentic-scroll-container">
-        <img
-          src="assets/scroll.png"
-          alt="مخطوطة قديمة"
-          class="scroll-bg-image"
-        />
-
-        <!-- Scroll Text & Character Content Overlaid on Real Parchment -->
-        <div class="scroll-inner-content">
-          <button class="scroll-close-seal" id="modal-close" aria-label="إغلاق">
-            &times;
-          </button>
-
-          <div class="scroll-header">
-            <div class="scroll-char-header-row">
-              <div class="scroll-character-area">
-                <img
-                  src=""
-                  alt="شخصية المحطة"
-                  class="character-transparent-img"
-                  id="modal-char-img"
-                />
-              </div>
-              <h2 class="scroll-title" id="modal-char-name">الملك داريوس</h2>
-            </div>
-          </div>
-
-          <div class="scroll-dialogue-area">
-            <p class="scroll-ancient-text" id="modal-dialogue-text"></p>
-          </div>
-
-          <div class="scroll-footer">
-            <button class="ancient-action-seal-btn" id="modal-action-btn">
-              <span id="modal-btn-text">لقيتها! افتح المحطة التالية 🔍</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Grand Finale Real Ancient Scroll Overlay -->
-    <div class="finale-overlay" id="finale-overlay" aria-hidden="true">
-      <div class="authentic-scroll-container finale-scroll-container">
-        <img
-          src="assets/scroll.png"
-          alt="مخطوطة قديمة"
-          class="scroll-bg-image"
-        />
-
-        <div class="scroll-inner-content finale-inner-content">
-          <div class="scroll-header">
-            <h2 class="scroll-title finale-title">
-              معجزة نجاة دانيال من جب الأسود!
-            </h2>
-          </div>
-
-          <div class="finale-verse-container">
-            <blockquote class="bible-verse-text">
-              «إِلَهِي أَرْسَلَ مَلاَكَهُ وَسَدَّ أَفْوَاهَ الأُسُودِ فَلَمْ
-              تَضُرَّنِي»
-            </blockquote>
-            <cite class="verse-cite">(سفر دانيال ٦: ٢٢)</cite>
-          </div>
-
-          <div class="finale-lessons-area">
-            <h3 class="lessons-title">📜 إيه اللي اتعلمناه من القصة؟</h3>
-            <div class="lessons-list">
-              <div class="lesson-item">
-                <strong>🙏 الصلاة والأمانة:</strong> الصلاة الدائمة والأمانة مع
-                ربنا مهما كانت الظروف صعبة.
-              </div>
-              <div class="lesson-item">
-                <strong>🛡️ حماية ربنا:</strong> ربنا دايماً بيحمي أولاده اللي
-                بيحبوه وبيمد إيده في أصعب الأوقات.
-              </div>
-            </div>
-          </div>
-
-          <div class="scroll-footer finale-actions">
-            <button
-              class="ancient-action-seal-btn victory-btn"
-              id="finale-replay-btn"
-            >
-              <span>🔄 إعادة المغامرة</span>
-            </button>
-            <button
-              class="ancient-action-seal-btn secondary-btn"
-              id="finale-back-btn"
-            >
-              <span>🗺️ مشاهدة الخريطة</span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Reset Confirmation Scroll -->
-    <div class="modal-overlay" id="confirm-modal" aria-hidden="true">
-      <div class="authentic-scroll-container confirm-scroll-container">
-        <img
-          src="assets/scroll.png"
-          alt="مخطوطة قديمة"
-          class="scroll-bg-image"
-        />
-        <div class="scroll-inner-content confirm-inner-content">
-          <h3 class="confirm-title">هل تريد إعادة المغامرة؟</h3>
-          <p class="confirm-msg">
-            سيتم إعادة قفل المحطات والبدء من جديد مع الملك داريوس.
-          </p>
-          <div class="confirm-actions">
-            <button
-              class="ancient-action-seal-btn danger-seal"
-              id="confirm-reset-yes"
-            >
-              نعم، أعد البدء
-            </button>
-            <button
-              class="ancient-action-seal-btn secondary-btn"
-              id="confirm-reset-no"
-            >
-              إلغاء
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
 
     <script src="app.js"></script>
