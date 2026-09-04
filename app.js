@@ -18,6 +18,12 @@
   const btnResetHunt = document.getElementById('btn-reset-hunt');
   const btnLionRoar = document.getElementById('btn-lion-roar');
 
+  // Bottom-Left Quick Controls
+  const btnQuickSoundStudio = document.getElementById('btn-quick-sound-studio');
+  const btnQuickSoundRoar = document.getElementById('btn-quick-sound-roar');
+  const btnQuickToggleView = document.getElementById('btn-quick-toggle-view');
+  const quickViewIcon = document.getElementById('quick-view-icon');
+
   // Spotlight Dialogue Modal Elements
   const stationModal = document.getElementById('station-modal');
   const modalBackdrop = document.getElementById('modal-backdrop');
@@ -120,6 +126,11 @@
           console.log('Audio playback deferred until user interaction:', err.message);
         });
       }
+      if (btnQuickSoundStudio) {
+        btnQuickSoundStudio.classList.remove('btn-active-trigger');
+        void btnQuickSoundStudio.offsetWidth;
+        btnQuickSoundStudio.classList.add('btn-active-trigger');
+      }
     } catch (e) {
       console.warn('Error playing studio sound effect:', e);
     }
@@ -143,6 +154,11 @@
         btnLionRoar.classList.remove('roaring');
         void btnLionRoar.offsetWidth;
         btnLionRoar.classList.add('roaring');
+      }
+      if (btnQuickSoundRoar) {
+        btnQuickSoundRoar.classList.remove('btn-active-trigger');
+        void btnQuickSoundRoar.offsetWidth;
+        btnQuickSoundRoar.classList.add('btn-active-trigger');
       }
     } catch (e) {
       console.warn('Error playing lion roar sound effect:', e);
@@ -196,9 +212,31 @@
       }
     });
 
-    // 4. Play studio sound effect every time user goes to studio
+    // 4. Update Quick Toggle View Icon (shows what next click will switch to)
+    if (quickViewIcon) {
+      quickViewIcon.textContent = sceneName === 'studio' ? '🗺️' : '🎙️';
+    }
+    if (btnQuickToggleView) {
+      btnQuickToggleView.setAttribute(
+        'title',
+        sceneName === 'studio' ? 'الانتقال إلى خريطة بابل (مسطرة المسافات)' : 'الانتقال إلى استوديو البث (مسطرة المسافات)'
+      );
+    }
+
+    // 5. Play studio sound effect every time user goes to studio
     if (sceneName === 'studio') {
       playStudioSound();
+    }
+  }
+
+  // Toggle between Studio and Map views
+  function toggleScene() {
+    const nextScene = currentScene === 'studio' ? 'map' : 'studio';
+    setScene(nextScene);
+    if (btnQuickToggleView) {
+      btnQuickToggleView.classList.remove('btn-active-trigger');
+      void btnQuickToggleView.offsetWidth;
+      btnQuickToggleView.classList.add('btn-active-trigger');
     }
   }
 
@@ -568,6 +606,16 @@
         playLionRoar();
         break;
 
+      case ' ':
+      case 'Spacebar':
+        // Only toggle view if modal or finale is not open
+        if (!stationModal.classList.contains('visible') && 
+            (!grandFinaleOverlay || !grandFinaleOverlay.classList.contains('visible'))) {
+          e.preventDefault();
+          toggleScene();
+        }
+        break;
+
       case 'Escape':
         if (grandFinaleOverlay && grandFinaleOverlay.classList.contains('visible')) {
           closeGrandFinale();
@@ -665,6 +713,26 @@
   }
   techCloseBtn.addEventListener('click', () => toggleTechPanel(false));
   techToggleTrigger.addEventListener('click', () => toggleTechPanel());
+
+  // Bottom-Left Quick Controls Event Listeners
+  if (btnQuickSoundStudio) {
+    btnQuickSoundStudio.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playStudioSound();
+    });
+  }
+  if (btnQuickSoundRoar) {
+    btnQuickSoundRoar.addEventListener('click', (e) => {
+      e.stopPropagation();
+      playLionRoar();
+    });
+  }
+  if (btnQuickToggleView) {
+    btnQuickToggleView.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggleScene();
+    });
+  }
 
   // Prevent default context menu outside tech panel
   window.addEventListener('contextmenu', (e) => {
